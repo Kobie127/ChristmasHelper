@@ -1,3 +1,14 @@
+/**
+ * It's the holiday season and you have this Christmas list from whomever.
+ * You have x amount of dollars you would like to spend but don't know what to get.
+ * This program will do that for you.  What this program does is parses the Christmas list
+ * that is entered by the user.  Once it is parsed, it will add the item and price into a hash map.
+ * From there the program will be able to print out all different combinations of items you can
+ * buy based on the money amount that you enter.  This program can also be used for non Christmas events.
+ *
+ * @author (Kobie Arndt)
+ */
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
