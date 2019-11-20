@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jaxb-impl-2.3.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/poi-4.1.1/lib/jaxb-impl-2.3.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

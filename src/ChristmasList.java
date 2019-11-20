@@ -19,6 +19,8 @@ import java.util.Scanner;
 import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.*;
+import org.apache.poi.hwpf.extractor.WordExtractor;
 
 import java.io.*;
 
@@ -56,6 +58,32 @@ public class ChristmasList {
     }
 
 
+    /**
+     * This function will look at the end of the string to see what kind of file extension it is.
+     * @param filename The name of the file
+     * @return the file extension
+     */
+    public static String getFileExtension(String filename){
+        if(filename.lastIndexOf(".") != -1 && filename.lastIndexOf(".") != 0){
+            return filename.substring(filename.lastIndexOf(".") + 1);
+        }else{
+            return " ";
+        }
+    }
+
+
+    /**
+     * This is a helper function for convertPdfToTxt.  What this does is take in the input stream
+     * and return it to an array of bytes.
+     * @param filePath Tthe file path of the pdf file being read
+     * @return the array of bytes
+     * @throws IOException
+     */
+    private static byte[] readFileAsBytes(String filePath) throws IOException{
+        FileInputStream inputStream = new FileInputStream(filePath);
+        return IOUtils.toByteArray(inputStream);
+    }
+
 
     /**
      * This function will convert a pdf to a txt file by parsing it using Apache's pdfbox open
@@ -86,31 +114,15 @@ public class ChristmasList {
         return file;
     }
 
+    public static String convertDocToTxt(String filename) throws IOException{
+        byte[] theDocFileBytes = readFileAsBytes(filename);
+        WordExtractor extractor = null;
+        try{
 
-    /**
-     * This function will look at the end of the string to see what kind of file extension it is.
-     * @param filename The name of the file
-     * @return the file extension
-     */
-    public static String getFileExtension(String filename){
-        if(filename.lastIndexOf(".") != -1 && filename.lastIndexOf(".") != 0){
-            return filename.substring(filename.lastIndexOf(".") + 1);
-        }else{
-            return " ";
         }
     }
 
-    /**
-     * This is a helper function for convertPdfToTxt.  What this does is take in the input stream
-     * and return it to an array of bytes.
-     * @param filePath Tthe file path of the pdf file being read
-     * @return the array of bytes
-     * @throws IOException
-     */
-    private static byte[] readFileAsBytes(String filePath) throws IOException{
-        FileInputStream inputStream = new FileInputStream(filePath);
-        return IOUtils.toByteArray(inputStream);
-    }
+
 
 
     public static void calculateHashMap(double value,  HashMap<String, Double> list)throws  IOException{
