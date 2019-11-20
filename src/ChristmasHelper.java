@@ -30,7 +30,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import java.io.*;
 
 
-public class ChristmasList {
+public class ChristmasHelper {
 
     /**
      * This function will dynamically populate a hash map by parsing
@@ -132,7 +132,6 @@ public class ChristmasList {
      * @throws IOException
      */
     public static String convertDocToTxt(String filename) throws IOException{
-        byte[] theDocFileBytes = readFileAsBytes(filename);
         File docFile = new File(filename);
         FileInputStream fis = new FileInputStream(docFile.getAbsolutePath());
         XWPFDocument document = new XWPFDocument(fis);
