@@ -23,6 +23,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.*;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
@@ -119,26 +120,17 @@ public class ChristmasList {
     }
 
     public static String convertDocToTxt(String filename) throws IOException{
-//      byte[] theDocFileBytes = readFileAsBytes(filename);
+        byte[] theDocFileBytes = readFileAsBytes(filename);
         File docFile = new File(filename);
         FileInputStream fis = new FileInputStream(docFile.getAbsolutePath());
         XWPFDocument document = new XWPFDocument(fis);
-        List<XWPFParagraph> paragraphs = document.getParagraphs();
+        XWPFWordExtractor extractor = new XWPFWordExtractor(document);
+        String txt = extractor.getText();
         String file = "src/doclist.txt";
-        for(XWPFParagraph para : paragraphs){
-            //System.out.println(para.getText());
-            String text = para.getText();
-            System.out.println(text);
-            try(FileOutputStream fos = new FileOutputStream(file, true)){
-                byte[] contents = text.getBytes();
-                fos.write(contents);
-            }
+        try(FileOutputStream fos = new FileOutputStream(file, true)){
+            byte[] myBytes = txt.getBytes();
+            fos.write(myBytes);
         }
-
-//        try(FileOutputStream fos = new FileOutputStream(file, true)){
-//            byte[] myBytes = txt.getBytes();
-//            fos.write(myBytes);
-//        }
         return file;
     }
 
@@ -186,7 +178,6 @@ public class ChristmasList {
             calculateHashMap(value, list);
         }else if(result.equals("docx")){
             String file = convertDocToTxt(filename);
-            System.out.println(file);
             System.out.println("Christmas List items");
             HashMap<String, Double> list = createHashMap(file);
             System.out.println("Please enter the amount you would like to spend this Christmas");
