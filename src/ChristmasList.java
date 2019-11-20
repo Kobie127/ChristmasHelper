@@ -14,13 +14,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.*;
+import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 import java.io.*;
 
@@ -115,12 +119,27 @@ public class ChristmasList {
     }
 
     public static String convertDocToTxt(String filename) throws IOException{
-        byte[] theDocFileBytes = readFileAsBytes(filename);
-        WordExtractor extractor = null;
-//        try{
-//
+//      byte[] theDocFileBytes = readFileAsBytes(filename);
+        File docFile = new File(filename);
+        FileInputStream fis = new FileInputStream(docFile.getAbsolutePath());
+        XWPFDocument document = new XWPFDocument(fis);
+        List<XWPFParagraph> paragraphs = document.getParagraphs();
+        String file = "src/doclist.txt";
+        for(XWPFParagraph para : paragraphs){
+            //System.out.println(para.getText());
+            String text = para.getText();
+            System.out.println(text);
+            try(FileOutputStream fos = new FileOutputStream(file, true)){
+                byte[] contents = text.getBytes();
+                fos.write(contents);
+            }
+        }
+
+//        try(FileOutputStream fos = new FileOutputStream(file, true)){
+//            byte[] myBytes = txt.getBytes();
+//            fos.write(myBytes);
 //        }
-        return "" ;
+        return file;
     }
 
 
@@ -159,13 +178,13 @@ public class ChristmasList {
         String result = getFileExtension(filename);
         if(result.equals("pdf")){
             String file = convertPdfToTxt(filename);
-            System.out.println(file);
+            //System.out.println(file);
             System.out.println("Christmas List items");
             HashMap<String, Double> list = createHashMap(file);
             System.out.println("Please enter the amount you would like to spend this Christmas");
             double value = in.nextDouble();
             calculateHashMap(value, list);
-        }else if(result.equals("doc")){
+        }else if(result.equals("docx")){
             String file = convertDocToTxt(filename);
             System.out.println(file);
             System.out.println("Christmas List items");
