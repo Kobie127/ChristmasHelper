@@ -75,6 +75,13 @@ public class ChristmasList {
             byte[] myBytes = txt.getBytes();
             fos.write(myBytes);
         }
+        BufferedReader fileReader = new BufferedReader(new FileReader(filename));
+        if(fileReader.readLine() != null){
+            try(FileOutputStream fnew = new FileOutputStream(file, false)){
+                byte[] newBytes = txt.getBytes();
+                fnew.write(newBytes);
+            }
+        }
         pdfDoc.close();
         return file;
     }
