@@ -117,9 +117,10 @@ public class ChristmasList {
     public static String convertDocToTxt(String filename) throws IOException{
         byte[] theDocFileBytes = readFileAsBytes(filename);
         WordExtractor extractor = null;
-        try{
-
-        }
+//        try{
+//
+//        }
+        return "" ;
     }
 
 
@@ -159,15 +160,20 @@ public class ChristmasList {
         if(result.equals("pdf")){
             String file = convertPdfToTxt(filename);
             System.out.println(file);
-            //System.out.println(result);
             System.out.println("Christmas List items");
             HashMap<String, Double> list = createHashMap(file);
             System.out.println("Please enter the amount you would like to spend this Christmas");
             double value = in.nextDouble();
             calculateHashMap(value, list);
-
-        }else {
-            //System.out.println(result);
+        }else if(result.equals("doc")){
+            String file = convertDocToTxt(filename);
+            System.out.println(file);
+            System.out.println("Christmas List items");
+            HashMap<String, Double> list = createHashMap(file);
+            System.out.println("Please enter the amount you would like to spend this Christmas");
+            double value = in.nextDouble();
+            calculateHashMap(value, list);
+        }else{
             System.out.println("Christmas List items");
             HashMap<String, Double> list = createHashMap(filename);
             System.out.println("Please enter the amount you would like to spend this Christmas");
