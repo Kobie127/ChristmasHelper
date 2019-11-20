@@ -92,10 +92,11 @@ public class ChristmasList {
 
     /**
      * This function will convert a pdf to a txt file by parsing it using Apache's pdfbox open
-     * source library.
+     * source library.  If there are contents in the file that was already written, this
+     * function will rewrite the txt file so the lists don't duplicate.
      *
      * @param filename The filename of the pdf file tot parse
-     * @return The string of the txt file to be passed into creayeHashMap
+     * @return The string of the txt file to be passed into createHashMap
      * @throws IOException
      */
     public static String convertPdfToTxt(String filename)throws IOException{
@@ -119,6 +120,17 @@ public class ChristmasList {
         return file;
     }
 
+
+    /**
+     * This function will convert a docx file to a txt file by parsing it using Apache's
+     * POIDocument open source library.  If there are contents in the file that was
+     * already written, this function will rewrite the txt file so the lists
+     * don't duplicate.
+     *
+     * @param filename the file name of the .docx file to parse
+     * @return the .txt file name to be passed into createHashMap
+     * @throws IOException
+     */
     public static String convertDocToTxt(String filename) throws IOException{
         byte[] theDocFileBytes = readFileAsBytes(filename);
         File docFile = new File(filename);
